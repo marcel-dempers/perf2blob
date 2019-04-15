@@ -9,7 +9,9 @@ COPY ./src /go/src/app/
 RUN go build -o perf2blob
 ################################################################################################################
 
-FROM aimvector/perf:4.9.125
+#See my dockerfiles repo for perf images:
+#https://github.com/marcel-dempers/my-desktop/tree/master/dockerfiles/perf
+FROM aimvector/perf:4.9.125 
 
 RUN mkdir -p /app
 COPY --from=build /go/src/app/perf2blob /app/
