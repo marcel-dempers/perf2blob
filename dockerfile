@@ -9,9 +9,10 @@ COPY ./src /go/src/app/
 RUN go build -o perf2blob
 ################################################################################################################
 
-FROM alpine:3.9
+FROM aimvector/perf:4.9.125
+
 RUN mkdir -p /app
 COPY --from=build /go/src/app/perf2blob /app/
-WORKDIR /app
+WORKDIR /out
 
-CMD ["./perf2blob"]
+ENTRYPOINT ["/app/perf2blob"]

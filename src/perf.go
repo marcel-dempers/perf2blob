@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 	"time"
 	"errors"
@@ -16,7 +17,10 @@ func PerfExec() (err error) {
 	fmt.Println("Perf...")
 
 		p := Perf{}
-		err = p.exec([]string{"--help"})
+		arguments := os.Args[1:]
+
+		//err = p.exec([]string{"--help"})
+		err = p.exec(arguments)
 		if err != nil {
 			panic(err)
 		}

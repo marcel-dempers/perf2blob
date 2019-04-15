@@ -20,3 +20,22 @@ export AZURE_STORAGE_CONTAINER=test
 
 ./perf2blob record -p $PROCESS_ID -ag -F 97 -- sleep 30
 ```
+
+### Docker 
+
+```
+#!/bin/bash
+docker run -it \
+--rm \
+--privileged \
+--ipc host \
+--pid host \
+-v $PWD:/out \
+-v /var/lib/docker:/var/lib/docker \
+-v /sys:/sys:ro \
+-v /etc/localtime:/etc/localtime:ro \
+-v /run:/run \
+-v /var/log:/var/log \
+--net host \
+aimvector/perf2blob record -p 1 -ag -F 97 -o /out/perf.data -- sleep 5
+```
