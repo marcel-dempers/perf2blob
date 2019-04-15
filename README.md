@@ -37,5 +37,5 @@ docker run -it \
 -v /run:/run \
 -v /var/log:/var/log \
 --net host \
-aimvector/perf2blob record -p 1 -ag -F 97 -o /out/perf.data -- sleep 5
+aimvector/perf2blob record -p 1 -ag -F 97 -o /out/perf.datak -- sleep 5
 ```
