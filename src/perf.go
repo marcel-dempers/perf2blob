@@ -26,7 +26,7 @@ func PerfExec() (err error) {
 
 func (d Perf) exec(args []string) (errr error) {
 	e:= Cmd{}
-	return e.exec("perf", args, 120)
+	return e.exec("/tmp/perf", args, 120)
 }
 
 func (e Cmd) exec(program string, args []string, timeoutInSec time.Duration) (err error){
@@ -57,11 +57,12 @@ func (e Cmd) exec(program string, args []string, timeoutInSec time.Duration) (er
 		
 		if err != nil {
 			fmt.Println("Cmd returned error after completion", err)
-			
 			println(outputbuf.String())
 			println(errbuf.String())
 			return errors.New(errbuf.String())
 		}
+
+		println(outputbuf.String())
 	}
 
 	fmt.Println("Cmd processing complete")
