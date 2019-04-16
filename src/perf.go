@@ -64,6 +64,8 @@ func (e Cmd) exec(program string, args []string, timeoutInSec time.Duration) (er
 			println(outputbuf.String())
 			println(errbuf.String())
 			return errors.New(errbuf.String())
+		} else {
+			UploadFiles()
 		}
 
 		println(outputbuf.String())

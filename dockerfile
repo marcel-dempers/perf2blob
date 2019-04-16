@@ -1,12 +1,14 @@
-FROM golang:1.12.1-alpine3.9 as build
-RUN apk add --no-cache git curl
+#FROM golang:1.12.1-alpine3.9 as build
+FROM golang:1.12.4-stretch as build
+RUN apt-get update && apt-get install -y git curl
 
 RUN mkdir -p /go/src/app
 WORKDIR /go/src/app
 
+RUN go get github.com/Azure/azure-storage-blob-go/azblob
 COPY ./src /go/src/app/
 
-RUN go build -o perf2blob
+RUN GOOS=linux GOARCH=amd64 go build -o perf2blob
 ################################################################################################################
 
 #See my dockerfiles repo for perf images:
@@ -15,6 +17,5 @@ FROM aimvector/perf:4.9.125
 
 RUN mkdir -p /app
 COPY --from=build /go/src/app/perf2blob /app/
-WORKDIR /out
-
-ENTRYPOINT ["/app/perf2blob"]
+WORKDIR /app
+ENTRYPOINT ["./perf2blob"]

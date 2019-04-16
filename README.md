@@ -16,7 +16,7 @@ Record a process for 30 sec
 ```
 export AZURE_STORAGE_ACCOUNT_NAME=test
 export AZURE_STORAGE_ACCOUNT_KEY=XXXX
-export AZURE_STORAGE_CONTAINER=test
+export AZURE_STORAGE_CONTAINER=perf
 
 ./perf2blob record -p $PROCESS_ID -ag -F 97 -- sleep 30
 ```
@@ -37,5 +37,8 @@ docker run -it \
 -v /run:/run \
 -v /var/log:/var/log \
 --net host \
-aimvector/perf2blob record -p 1 -ag -F 97 -o /out/perf.datak -- sleep 5
+-e AZURE_STORAGE_ACCOUNT_NAME=$AZURE_STORAGE_ACCOUNT_NAME \
+-e AZURE_STORAGE_ACCOUNT_KEY=$AZURE_STORAGE_ACCOUNT_KEY \
+-e AZURE_STORAGE_CONTAINER=$AZURE_STORAGE_CONTAINER \
+aimvector/perf2blob record -p 1 -ag -F 97 -o /out/perf.data -- sleep 5
 ```
