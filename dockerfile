@@ -14,7 +14,7 @@ RUN GOOS=linux GOARCH=amd64 go build -o perf2blob
 #See my dockerfiles repo for perf images:
 #https://github.com/marcel-dempers/my-desktop/tree/master/dockerfiles/perf
 FROM aimvector/perf:4.9.125 
-
+RUN apt-get update && apt-get install -y ca-certificates
 RUN mkdir -p /app
 COPY --from=build /go/src/app/perf2blob /app/
 WORKDIR /app

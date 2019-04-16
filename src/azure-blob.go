@@ -43,17 +43,17 @@ func UploadFiles() {
 	}
 	p := azblob.NewPipeline(credential, azblob.PipelineOptions{})
 
-
-	URL, _ := url.Parse(
-		fmt.Sprintf("https://%s.blob.core.windows.net/%s", accountName, containerName))
+	u, _ := url.Parse(fmt.Sprintf("https://%s.blob.core.windows.net", accountName))
+	serviceURL := azblob.NewServiceURL(*u, p)
+	ctx := context.Background()
 
 	// Create a ContainerURL object that wraps the container URL and a request
 	// pipeline to make requests.
-	containerURL := azblob.NewContainerURL(*URL, p)
+	containerURL := serviceURL.NewContainerURL(containerName)
 
 	// Create the container
 	fmt.Printf("Creating a container named %s\n", containerName)
-	ctx := context.Background() // This example uses a never-expiring context
+	 // This example uses a never-expiring context
 	_, err = containerURL.Create(ctx, azblob.Metadata{}, azblob.PublicAccessNone)
 	handleErrors(err)
 
